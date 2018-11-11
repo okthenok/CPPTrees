@@ -1,14 +1,15 @@
 #pragma once
 #include <iostream>
+using namespace std;
 
 template <typename T>
 class BSTNode {
 public:
 	BSTNode(T);
 	T Value;
-	BSTNode Left;
-	BSTNode Right;
-	BSTNode Parent;
+	shared_ptr<BSTNode<T>> Left;
+	shared_ptr<BSTNode<T>> Right;
+	shared_ptr<BSTNode<T>> Parent;
 };
 
 template <typename T>
