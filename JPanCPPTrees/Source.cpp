@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BSTNode.h"
 #include "BSTree.h"
+using namespace std;
 
 int main() {
 	BSTree<int> tree;

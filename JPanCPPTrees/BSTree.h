@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "BSTNode.h"
 using namespace std;
 
@@ -64,15 +63,15 @@ void BSTree<T>::Insert(T value) {
 		Count++;
 		return;
 	}
-	auto curr = head.get();
+	auto curr = head;
 	while (curr != nullptr) {
 		if (value < curr->Value) {
 			if (curr->Left == nullptr) {
 				curr->Left = make_shared<BSTNode<T>>(value);
-				curr->Left->Parent = make_shared<BSTNode<T>>(curr);
+				curr->Left->Parent = move(curr);
 				break;
 			}
-			curr = curr->Left.get();
+			curr = curr->Left;
 		}
 		else if (value >= curr->Value) {
 			if (curr->Right == nullptr) {
@@ -80,7 +79,7 @@ void BSTree<T>::Insert(T value) {
 				curr->Right->Parent = move(curr);
 				break;
 			}
-			curr = curr->Right.get();
+			curr = curr->Right;
 		}
 	}
 	//if curr == null: throw
