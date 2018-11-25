@@ -104,6 +104,7 @@ bool BSTree<T>::DeleteHelper(shared_ptr<BSTNode<T>> curr) {
 		else {
 			curr->Parent->Right = nullptr;
 		}
+		Count--;
 		return true;
 	}
 	if (curr->Left != nullptr ^ curr->Right != nullptr) {
@@ -125,6 +126,7 @@ bool BSTree<T>::DeleteHelper(shared_ptr<BSTNode<T>> curr) {
 				curr->Parent->Right = curr->Parent->Right->Right;
 			}
 		}
+		Count--;
 		return true;
 	}
 	else {
@@ -134,6 +136,7 @@ bool BSTree<T>::DeleteHelper(shared_ptr<BSTNode<T>> curr) {
 		}
 		curr->Value = node->Value;
 		DeleteHelper(node);
+		Count--;
 		return true;
 	}
 	return false;

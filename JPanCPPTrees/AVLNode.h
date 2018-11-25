@@ -4,30 +4,52 @@ using namespace std;
 template <typename T>
 class AVLNode {
 public:
-	AVLNode(T);
 	T Value;
+	int Height;
 	unique_ptr<AVLNode<T>> Left;
 	unique_ptr<AVLNode<T>> Right;
-	int Height();
-	int Balance();
+
+	AVLNode(T);
+	int UpdateHeight();
+	int GetBalance();
 };
 
 template <typename T>
 AVLNode<T>::AVLNode(T value) {
 	Value = value;
-	Height = 0;
-	Balance = 0;
 }
 
 template <typename T>
-int AVLNode<T>::Height() {
-	if (Left.Height > Right.Height) {
-		return Left.Height + 1;
+int AVLNode<T>::UpdateHeight() {
+	if(Left == nullptr && Right == nullptr)
+	{
+		Height = 1;
+		return;
 	}
-	return Right.Height + 1;
+	else if (Left == nullptr)
+	{
+		Height = Right->Height + 1;
+		return;
+	}
+	else if (Right == nullptr)
+	{
+		Height = Left->Height + 1;
+		return;
+	}
+	else
+	{
+		if (Left->Height > Right->Height)
+		{
+			Height = Left->Height + 1;
+		}
+		else
+		{
+			Height = Right->Height + 1;
+		}
+	}
 }
 
 template <typename T>
-int AVLNode<T>::Balance() {
+int AVLNode<T>::GetBalance() {
 	return Right.Height - Left.Height;
 }
