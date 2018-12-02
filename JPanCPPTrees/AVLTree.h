@@ -7,15 +7,18 @@ template <typename T>
 class AVLTree {
 public:
 	AVLTree();
-	unique_ptr<AVLNode<T>> LeftRotation(unique_ptr<AVLNode<T>>&);
-	unique_ptr<AVLNode<T>> RightRotation(unique_ptr<AVLNode<T>>&);
-	unique_ptr<AVLNode<T>> Balance(unique_ptr<AVLNode<T>>&);
 	void Add(T);
 	bool Delete(T);
+	//Contains
+	void Print();
 private:
 	unique_ptr<AVLNode<T>> head;
-	unique_ptr<AVLNode<T>> AddHelper(T, unique_ptr<AVLNode<T>>&);
-	bool DeleteHelper(T);
+
+	unique_ptr<AVLNode<T>> LeftRotation(unique_ptr<AVLNode<T>>);
+	unique_ptr<AVLNode<T>> RightRotation(unique_ptr<AVLNode<T>>);
+	unique_ptr<AVLNode<T>> Balance(unique_ptr<AVLNode<T>>);
+	unique_ptr<AVLNode<T>> AddHelper(T, unique_ptr<AVLNode<T>>);
+	unique_ptr<AVLNode<T>> DeleteHelper(T, unique_ptr<AVLNode<T>>);
 };
 
 template <typename T>
@@ -24,65 +27,112 @@ AVLTree<T>::AVLTree() {
 }
 
 template <typename T>
-unique_ptr<AVLNode<T>> AVLTree<T>::LeftRotation(unique_ptr<AVLNode<T>>& node) {
+unique_ptr<AVLNode<T>> AVLTree<T>::LeftRotation(unique_ptr<AVLNode<T>> node) {
 	unique_ptr<AVLNode<T>> pivot = move(node->Right);
 	node->Right = move(pivot->Left);
 	pivot->Left = move(node);
+
+	pivot->Left->UpdateHeight();
+	pivot->UpdateHeight();
+
 	return pivot;
 }
 
 template <typename T>
-unique_ptr<AVLNode<T>> AVLTree<T>::RightRotation(unique_ptr<AVLNode<T>>& node) {
-	//fix rotate here
-	throw "not implemented error";
+unique_ptr<AVLNode<T>> AVLTree<T>::RightRotation(unique_ptr<AVLNode<T>> node) {
+	unique_ptr<AVLNode<T>> pivot = move(node->Left);
+	node->Left = move(pivot->Right);
+	pivot->Right = move(node);
+
+	pivot->Right->UpdateHeight();
+	pivot->UpdateHeight();
+
+	return pivot;
 }
 
 template <typename T>
-unique_ptr<AVLNode<T>> AVLTree<T>::Balance(unique_ptr<AVLNode<T>>& node) {
+unique_ptr<AVLNode<T>> AVLTree<T>::Balance(unique_ptr<AVLNode<T>> node) {
 
 	node->UpdateHeight();
 
 	if (node->GetBalance() > 1) {
 		if (node->Right->GetBalance() < 0)
 		{
-			node->Right = move(RightRotation(node->Right));
+			node->Right = RightRotation(move(node->Right));
 		}
 
-		node = move(LeftRotation(node));
+		node = LeftRotation(move(node));
 	}
 	else if (node->GetBalance() < -1) {
-		//fix balance here
+		if (node->Left->GetBalance() > 0) {
+			node->Left = LeftRotation(move(node->Left));
+		}
+
+		//rotate right
+		node = RightRotation(move(node));
 	}
 
 	return node;
 }
 
 template <typename T>
-unique_ptr<AVLNode<T>> AVLTree<T>::AddHelper(T value, unique_ptr<AVLNode<T>>& node) {
-
+unique_ptr<AVLNode<T>> AVLTree<T>::AddHelper(T value, unique_ptr<AVLNode<T>> node) {
 	if (node == nullptr) {
 		return make_unique<AVLNode<T>>(value);
 	}
 
-	if (value < node->Left->Value) {
-		node->Left = move(AddHelper(value, node->Left));
+	if (value < node->Value) {
+		node->Left = AddHelper(value, move(node->Left));
 	}
-	else if (value < node->Right->Value) {
-		node->Right = move(AddHelper(value, node->Right));
+	else if (value > node->Value) {
+		node->Right = AddHelper(value, move(node->Right));
 	}
 	else {
 		throw "repeated number error";
 	}
 
-	node = move(Balance(node));
+	node = Balance(move(node));
 	return node;
 }
 
 template <typename T>
 void AVLTree<T>::Add(T value) {
-	if (head == nullptr) {
-		head = make_unique<AVLNode<T>>(value);
-		return;
+	head = AddHelper(value, move(head));
+}
+
+template<typename T>
+void AVLTree<T>::Print()
+{
+	head->Print("", true);
+}
+
+template <typename T>
+unique_ptr<AVLNode<T>> AVLTree<T>::DeleteHelper(T value, unique_ptr<AVLNode<T>> node) {
+	if (node == nullptr) {
+		return nullptr;
 	}
-	head = move(AddHelper(value, head));
+	
+	if (value < node->Value) {
+		node->Left = DeleteHelper(value, move(node->Left));
+	}
+	else if (value > node->Value) {
+		node->Right = DeleteHelper(value, move(node->Right));
+	}
+	else {
+		if ((node->Left != nullptr) && (node->Right != nullptr)) {
+			auto temp = node->Left.get();
+			while (temp->Right != nullptr) {
+				temp = temp->Right.get();
+			}
+			node->Value = temp->Value;
+			DeleteHelper(temp->Value, move(node->Left));
+		}
+	}
+
+	return nullptr;
+}
+
+template <typename T>
+bool AVLTree<T>::Delete(T value) {
+	head = DeleteHelper(value, move(head));
 }

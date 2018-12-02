@@ -1,4 +1,5 @@
-#pragma once
+﻿#pragma once
+#include <string>
 using namespace std;
 
 template <typename T>
@@ -10,17 +11,19 @@ public:
 	unique_ptr<AVLNode<T>> Right;
 
 	AVLNode(T);
-	int UpdateHeight();
+	void UpdateHeight();
 	int GetBalance();
+	void Print(string prefix, bool isTail);
 };
 
 template <typename T>
 AVLNode<T>::AVLNode(T value) {
 	Value = value;
+	Height = 1;
 }
 
 template <typename T>
-int AVLNode<T>::UpdateHeight() {
+void AVLNode<T>::UpdateHeight() {
 	if(Left == nullptr && Right == nullptr)
 	{
 		Height = 1;
@@ -51,5 +54,50 @@ int AVLNode<T>::UpdateHeight() {
 
 template <typename T>
 int AVLNode<T>::GetBalance() {
-	return Right.Height - Left.Height;
+
+	int right = 0;
+	int left = 0;
+	if (Right != nullptr)
+	{
+		right = Right->Height;
+	}
+
+	if (Left != nullptr)
+	{
+		left = Left->Height;
+	}
+
+	return right - left;
+}
+
+template<typename T>
+void AVLNode<T>::Print(string prefix, bool isTail)
+{
+	cout << prefix;
+	if (isTail)
+	{
+		cout << "->";
+		prefix += "  ";
+	}
+	else
+	{
+		cout << "|>";
+		prefix += "| ";
+	}
+	cout << Value << endl;
+
+	if (Left != nullptr && Right != nullptr)
+	{
+		Left->Print(prefix, false);
+		Right->Print(prefix, true);
+	}
+	else if (Left != nullptr)
+	{
+		Left->Print(prefix, true);
+	}
+	else if (Right != nullptr)
+	{
+		Right->Print(prefix, true);
+	}
+
 }
