@@ -1,16 +1,21 @@
 #pragma once
 #include "AVLNode.h"
 #include <iostream>
+#include <stack>
+#include <vector>
 using namespace std;
 
 template <typename T>
 class AVLTree {
 public:
+	FRIEND_TEST(AVLTreeTest, TestTreeInitialize);
+	FRIEND_TEST(AVLTreeTest, TestTreeAdd);
 	AVLTree();
 	void Add(T);
 	bool Delete(T);
-	//Contains
+	bool Contains(T);
 	void Print();
+	void DFS();
 private:
 	unique_ptr<AVLNode<T>> head;
 
@@ -127,12 +132,49 @@ unique_ptr<AVLNode<T>> AVLTree<T>::DeleteHelper(T value, unique_ptr<AVLNode<T>> 
 			node->Value = temp->Value;
 			DeleteHelper(temp->Value, move(node->Left));
 		}
+		else if (node->Left != nullptr) {
+			 return move(node->Left);
+		}
+		else if (node->Right != nullptr) {
+			return move(node->Right);
+		}
+		else {
+			return nullptr;
+		}
 	}
-
-	return nullptr;
+	node = Balance(move(node));
+	return node;
 }
 
 template <typename T>
 bool AVLTree<T>::Delete(T value) {
 	head = DeleteHelper(value, move(head));
+	return true;
+}
+
+template <typename T>
+bool AVLTree<T>::Contains(T value) {
+	bool found = false;
+	auto find = move(head);
+	while (!found) {
+		if (find == nullptr) {
+			return false;
+		}
+		if (value > find->Value) {
+			find = move(find->Right);
+		}
+		else if (value < find->Value) {
+			find = move(find->Left);
+		}
+		else {
+			return true;
+		}
+	}
+}
+
+
+template <typename T>
+void AVLTree<T>::DFS() {
+	stack<AVLNode<T>> nodes;
+
 }

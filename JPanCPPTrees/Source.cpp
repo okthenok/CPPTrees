@@ -11,7 +11,8 @@ int main() {
 	{
 		tree.Add(i);
 	}
-
+	tree.Delete(5);
+	tree.Delete(7);
 	tree.Print();
 	
 	system("PAUSE");

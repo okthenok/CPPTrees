@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GtaTestDurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Executable>C:\Users\JohnnyPan\Documents\Github\CPPTrees\Debug\TreeUnitTest.exe</Executable>
+  <TestDurations>
+    <TestDuration Test="TestTreeInstantiation.TestTree" Duration="1" />
+    <TestDuration Test="TestCaseName.TestName" Duration="1" />
+    <TestDuration Test="TestTreeInitialize.AVLTreeTest" Duration="1" />
+    <TestDuration Test="AVLTreeTest.TestTreeInitialize" Duration="1" />
+    <TestDuration Test="AVLTreeTest.TestTreeAdd" Duration="1" />
+  </TestDurations>
+</GtaTestDurations>
