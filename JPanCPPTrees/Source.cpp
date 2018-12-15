@@ -11,9 +11,11 @@ int main() {
 	{
 		tree.Add(i);
 	}
-	tree.Delete(5);
-	tree.Delete(7);
+	/*tree.Delete(5);
+	tree.Delete(7);*/
 	tree.Print();
+	stack<AVLNode<int>*> nodes;
+	tree.InOrderDFS(tree.head.get(), nodes);
 	
 	system("PAUSE");
 	return 0;

@@ -15,6 +15,18 @@ TEST(AVLTreeTest, TestTreeAdd) {
 	EXPECT_TRUE(tree.head->GetBalance() < 2 && tree.head->GetBalance() > -2);
 }
 
+TEST(AVLTreeTest, TestTreeAVL) {
+	AVLTree<int> tree;
+	for (int i = 0; i <= 10; i++) {
+		tree.Add(i);
+	}
+	stack<AVLNode<int>*> nodes;
+	tree.InOrderDFS(tree.head.get(), nodes);
+	for (int i = 0; i <= 10; i++) {
+		EXPECT_EQ(nodes.top()->Value, i);
+		nodes.pop();
+	}
+}
 
 TEST(TestCaseName, TestName) {
   EXPECT_EQ(1, 1);
