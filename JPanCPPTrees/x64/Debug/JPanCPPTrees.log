@@ -1,2 +1,19 @@
-﻿  Source.cpp
-  JPanCPPTrees.vcxproj -> C:\Users\GMRInstructor\Desktop\CPPTrees\x64\Debug\JPanCPPTrees.exe
+﻿  SkipList.h
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C2143: syntax error: missing ';' before '<'
+  c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(12): note: see reference to class template instantiation 'SkipListNode<T>' being compiled
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C2238: unexpected token(s) preceding ';'
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(9): error C2143: syntax error: missing ';' before '<'
+  c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(16): note: see reference to class template instantiation 'SkipList<T>' being compiled
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(9): error C2238: unexpected token(s) preceding ';'
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(20): error C3861: 'head': identifier not found
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(25): error C3861: 'unique_ptr': identifier not found
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(25): error C3861: 'node': identifier not found
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplist.h(25): error C3861: 'make_unique': identifier not found
+  SkipListNode.h
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C2143: syntax error: missing ';' before '<'
+  c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(12): note: see reference to class template instantiation 'SkipListNode<T>' being compiled
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\johnnypan\documents\github\cpptrees\jpancpptrees\skiplistnode.h(9): error C2238: unexpected token(s) preceding ';'
+  Generating Code...

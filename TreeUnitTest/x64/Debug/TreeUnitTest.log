@@ -1,2 +1,3 @@
-﻿  test.cpp
-  TreeUnitTest.vcxproj -> C:\Users\GMRInstructor\Desktop\CPPTrees\x64\Debug\TreeUnitTest.exe
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  test.cpp
+  TreeUnitTest.vcxproj -> C:\Users\JohnnyPan\Documents\Github\CPPTrees\x64\Debug\TreeUnitTest.exe

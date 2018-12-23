@@ -15,7 +15,7 @@ int main() {
 	tree.Delete(7);*/
 	tree.Print();
 	stack<AVLNode<int>*> nodes;
-	tree.InOrderDFS(tree.head.get(), nodes);
+	tree.PreOrderDFS(tree.head.get(), nodes);
 	
 	system("PAUSE");
 	return 0;

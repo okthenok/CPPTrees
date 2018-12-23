@@ -10,7 +10,10 @@ class AVLTree {
 public:
 	FRIEND_TEST(AVLTreeTest, TestTreeInitialize);
 	FRIEND_TEST(AVLTreeTest, TestTreeAdd);
-	FRIEND_TEST(AVLTreeTest, TestTreeAVL);
+	FRIEND_TEST(AVLTreeTest, TestTreeDFS);
+
+	unique_ptr<AVLNode<T>> head;
+
 	AVLTree();
 	void Add(T);
 	bool Delete(T);
@@ -19,7 +22,6 @@ public:
 	void PreOrderDFS(AVLNode<T>*, stack<AVLNode<T>*>&);
 	void InOrderDFS(AVLNode<T>*, stack<AVLNode<T>*>&);
 	void PostOrderDFS(AVLNode<T>*, stack<AVLNode<T>*>&);
-	unique_ptr<AVLNode<T>> head;
 private:
 	unique_ptr<AVLNode<T>> LeftRotation(unique_ptr<AVLNode<T>>);
 	unique_ptr<AVLNode<T>> RightRotation(unique_ptr<AVLNode<T>>);
@@ -178,31 +180,31 @@ template <typename T>
 void AVLTree<T>::PreOrderDFS(AVLNode<T>* node, stack<AVLNode<T>*>& nodes) {
 	nodes.push(node);
 	if (node->Left != nullptr) { 
-		node->Left; 
+		PreOrderDFS(node->Left.get(), nodes); 
 	}
 	if (node->Right != nullptr) { 
-		node->Right; 
+		PreOrderDFS(node->Right.get(), nodes); 
 	}
 }
 
 template <typename T>
 void AVLTree<T>::InOrderDFS(AVLNode<T>* node, stack<AVLNode<T>*>& nodes) {
 	if (node->Left != nullptr) {
-		node->Left;
+		InOrderDFS(node->Left.get(), nodes);
 	}
 	nodes.push(node);
 	if (node->Right != nullptr) {
-		node->Right;
+		InOrderDFS(node->Right.get(), nodes);
 	}
 }
 
 template <typename T>
 void AVLTree<T>::PostOrderDFS(AVLNode<T>* node, stack<AVLNode<T>*>& nodes) {
 	if (node->Left != nullptr) {
-		node->Left;
+		PostOrderDFS(node->Left.get(), nodes);
 	}
 	if (node->Right != nullptr) {
-		node->Right;
+		PostOrderDFS(node->Right.get(), nodes);
 	}
 	nodes.push(node);
 }
