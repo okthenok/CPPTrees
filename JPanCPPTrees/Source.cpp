@@ -3,19 +3,16 @@
 #include "BSTree.h"
 #include "AVLNode.h"
 #include "AVLTree.h"
+#include "SkipListNode.h"
+#include "SkipList.h"
 using namespace std;
 
 int main() {
-	AVLTree<int> tree;
+	SkipList<int> list;
 	for (int i = 0; i <= 10; i++)
 	{
-		tree.Add(i);
+		list.Add(i);
 	}
-	/*tree.Delete(5);
-	tree.Delete(7);*/
-	tree.Print();
-	stack<AVLNode<int>*> nodes;
-	tree.PreOrderDFS(tree.head.get(), nodes);
 	
 	system("PAUSE");
 	return 0;

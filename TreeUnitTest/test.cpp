@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../JPanCPPTrees/AVLTree.h"
+#include "../JPanCPPTrees/SkipList.h"
 
 
 TEST(AVLTreeTest, TestTreeInitialize) {
