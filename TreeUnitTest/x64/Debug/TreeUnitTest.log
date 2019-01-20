@@ -52,4 +52,4 @@
           ]
 cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
   test.cpp
-  TreeUnitTest.vcxproj -> \\GMRDC1\Folder Redirection\Johnny.Pan\Documents\Github\CPPTrees\x64\Debug\TreeUnitTest.exe
+\\gmrdc1\folder redirection\johnny.pan\documents\github\cpptrees\jpancpptrees\skiplist.h(28): fatal error C1075: '{': no matching token found
