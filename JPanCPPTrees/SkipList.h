@@ -15,8 +15,8 @@ public:
 	void ChooseRandHeight(shared_ptr<SkipListNode<T>>&);
 	void Add(T);
 	bool Remove(T);
-	void Search(T);
-	void Enumerate();
+	SkipListNode<T>* Search(T);
+	vector<shared_ptr<SkipListNode<T>>> Enumerate();
 };
 
 template <typename T>
@@ -33,7 +33,7 @@ void SkipList<T>::ChooseRandHeight(shared_ptr<SkipListNode<T>>& node) {
 	while (dist2(rng) % 2 == 0 && node->Height < head->Height + 1) {
 		node->Height++;
 		node->Nexts.emplace_back(nullptr);
-	
+	}
 	if (node->Height > head->Height) {
 		for (int i = node->Height; i > head->Height; i--) {
 			head->Nexts.emplace_back(nullptr);
@@ -64,4 +64,59 @@ void SkipList<T>::Add(T value) {
 			search = search->Nexts[currHeight].get();
 		}
 	}
+}
+
+template <typename T>
+SkipListNode<T>* SkipList<T>::Search(T value) {
+	if (head == nullptr) {
+		return nullptr;
+	}
+	auto search = head.get();
+	int currHeight = head->Height - 1;
+	while (currHeight > -1) {
+		if (search->Nexts[currHeight] == nullptr || search->Nexts[currHeight]->Value > value) {
+			currHeight--;
+		}
+		else if (search->Nexts[currHeight]->Value < value) {
+			search = search->Nexts[currHeight].get();
+		}
+		else if (search->Nexts[currHeight]->Value == value) {
+			return search->Nexts[currHeight].get();
+		}
+	}
+	return nullptr;
+}
+
+template <typename T>
+bool SkipList<T>::Remove(T value) {
+	if (head == nullptr) {
+		return false;
+	}
+	auto search = head;
+	int currHeight = head->Height - 1;
+	while (currHeight > -1) {
+		if (search->Nexts[currHeight] == nullptr || search->Nexts[currHeight]->Value > value) {
+			currHeight--;
+		}
+		else if (search->Nexts[currHeight]->Value < value) {
+			search = search->Nexts[currHeight];
+		}
+		else if (search->Nexts[currHeight]->Value == value) {
+			search->Nexts[currHeight] = search->Nexts[currHeight]->Nexts[currHeight];
+		}
+	}
+	return true;
+}
+
+template <typename T>
+vector<shared_ptr<SkipListNode<T>>> SkipList<T>::Enumerate() {
+	vector<shared_ptr<SkipListNode<T>>> list;
+	if (head != nullptr) {
+		auto search = head.get();
+		while (search->Nexts[0] != nullptr) {
+			list.emplace_back(search->Nexts[0]);
+			search = search->Nexts[0].get();
+		}
+	}
+	return list;
 }

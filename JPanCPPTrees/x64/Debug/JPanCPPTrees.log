@@ -1,6 +1,2 @@
 ﻿  SkipList.h
-\\gmrdc1\folder redirection\johnny.pan\documents\github\cpptrees\jpancpptrees\skiplist.h(28): fatal error C1075: '{': no matching token found
-  SkipListNode.h
-  Source.cpp
-\\gmrdc1\folder redirection\johnny.pan\documents\github\cpptrees\jpancpptrees\skiplist.h(28): fatal error C1075: '{': no matching token found
-  Generating Code...
+  JPanCPPTrees.vcxproj -> \\GMRDC1\Folder Redirection\Johnny.Pan\Documents\Github\CPPTrees\x64\Debug\JPanCPPTrees.exe
